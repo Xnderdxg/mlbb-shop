@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLBB Diamond Store — Мгновенное пополнение</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --main-green: #00ff88; --tg-blue: #0088cc; --bg-black: #050505; --card-bg: rgba(255,255,255,0.05); }
+        
+        body { background: var(--bg-black); color: white; font-family: 'Roboto', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: auto; padding: 20px; }
+
+        /* Шапка */
+        header { text-align: center; padding: 60px 20px; background: radial-gradient(circle at center, #1a2a1a 0%, var(--bg-black) 70%); }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 3rem; margin: 0; background: linear-gradient(to right, #00ff88, #00ccff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
+        .promo-text { color: #888; font-size: 1.1rem; margin-top: 10px; }
+
+        /* Сетки и секции */
+        .section-header { font-family: 'Orbitron', sans-serif; border-left: 4px solid var(--main-green); padding-left: 15px; margin: 50px 0 25px; font-size: 1.4rem; text-transform: uppercase; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+
+        /* Карточка товара */
+        .card { background: var(--card-bg); border-radius: 24px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; backdrop-filter: blur(10px); }
+        .card:hover { transform: translateY(-10px); border-color: var(--main-green); box-shadow: 0 15px 35px rgba(0,255,136,0.15); }
+        .card img { width: 100%; height: 180px; border-radius: 15px; object-fit: cover; margin-bottom: 20px; }
+        .card h3 { margin: 10px 0; font-size: 1.3rem; }
+        .price { font-size: 1.8rem; color: var(--main-green); font-weight: bold; margin-bottom: 20px; font-family: 'Orbitron', sans-serif; }
+        .buy-btn { background: var(--main-green); color: black; border: none; padding: 15px; border-radius: 12px; font-weight: bold; width: 100%; cursor: pointer; text-transform: uppercase; font-family: 'Orbitron', sans-serif; transition: 0.3s; }
+        .buy-btn:hover { filter: brightness(1.2); box-shadow: 0 0 20px rgba(0,255,136,0.4); }
+
+        /* Виджет Telegram */
+        .tg-widget { position: fixed; bottom: 30px; right: 30px; background: var(--tg-blue); width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 1000; box-shadow: 0 10px 25px rgba(0,136,204,0.4); transition: 0.3s; text-decoration: none; }
+        .tg-widget:hover { transform: scale(1.1) rotate(10deg); }
+        .tg-tip { position: absolute; right: 80px; background: white; color: black; padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: bold; opacity: 0; transition: 0.3s; white-space: nowrap; pointer-events: none; }
+        .tg-widget:hover .tg-tip { opacity: 1; right: 90px; }
+
+        /* Модальное окно */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-content { background: #111; padding: 40px; border-radius: 30px; border: 2px solid var(--main-green); width: 90%; max-width: 400px; text-align: center; }
+        .modal input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 10px; border: 1px solid #333; background: #000; color: white; font-size: 1rem; box-sizing: border-box; }
+        .confirm-btn { background: var(--main-green); color: black; border: none; padding: 16px; width: 100%; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; font-family: 'Orbitron', sans-serif; }
+
+        /* Бейджи */
+        .badge { position: absolute; top: 15px; right: 15px; background: #ff0055; padding: 5px 15px; border-radius: 8px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+
+        footer { text-align: center; padding: 60px 20px; color: #444; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>MLBB DIAMONDS</h1>
+    <div class="promo-text">Официальное пополнение по Player ID • Моментально</div>
+</header>
+
+<div class="container">
+    
+    <div class="section-header">🔥 Специальные предложения</div>
+    <div class="grid">
+        <div class="card">
+            <span class="badge">Выгодно</span>
+            <img src="https://70.img.avito.st/image/1/1.bsVR2La4wiwXaxQiAeEyj355wCrveTA-M3fALuFxyibn.1lhfqTzUCNvUcj8LfGCQ4QYpd9ezXQ3iduvjkxe0oLk">
+            <h3>50 + 50 Алмазов</h3>
+            <div class="price">80 ₽</div>
+            <button class="buy-btn" onclick="openOrder('https://app.lava.top/products/87e70632-af51-4c1c-b014-97c774cfe69f')">Купить</button>
+        </div>
+        <div class="card">
+            <img src="https://70.img.avito.st/image/1/1.bsVR2La4wiwXaxQiAeEyj355wCrveTA-M3fALuFxyibn.1lhfqTzUCNvUcj8LfGCQ4QYpd9ezXQ3iduvjkxe0oLk">
+            <h3>250 + 150 Алмазов</h3>
+            <div class="price">450 ₽</div>
+            <button class="buy-btn" onclick="openOrder('https://app.lava.top/products/8bb261b4-57dd-4b4f-9d89-e83cec0e942f')">Купить</button>
+        </div>
+        <div class="card">
+            <img src="https://70.img.avito.st/image/1/1.bsVR2La4wiwXaxQiAeEyj355wCrveTA-M3fALuFxyibn.1lhfqTzUCNvUcj8LfGCQ4QYpd9ezXQ3iduvjkxe0oLk">
+            <h3>1000 + 350 Алмазов</h3>
+            <div class="price">1700 ₽</div>
+            <button class="buy-btn" onclick="openOrder('https://app.lava.top/products/c4811464-de9e-4bf5-a20c-a330a5c734da')">Купить</button>
+        </div>
+    </div>
+
+    <div class="section-header">🌟 Звёздные пропуски</div>
+    <div class="grid">
+        <div class="card">
+            <img src="https://sun9-19.userapi.com/3izCKVUkgsuk3LTy1PzdC7_TApWJunFGLfpMYA/OmfsxZSgv0I.jpg">
+            <h3>Starlight Pass</h3>
+            <div class="price">350 ₽</div>
+            <button class="buy-btn" onclick="openOrder('https://app.lava.top/products/838f6950-1779-493b-9ab1-45907ae1eafe')">Купить</button>
+        </div>
+        <div class="card">
+            <img src="https://sun9-19.userapi.com/3izCKVUkgsuk3LTy1PzdC7_TApWJunFGLfpMYA/OmfsxZSgv0I.jpg">
+            <h3>Starlight Pass Plus</h3>
+            <div class="price">750 ₽</div>
+            <button class="buy-btn" onclick="openOrder('https://app.lava.top/products/0c39abf9-2a74-480e-9072-2003b413720c')">Купить</button>
+        </div>
+    </div>
+
+    <div class="section-header">💎 Чистые алмазы</div>
+    <div class="grid">
+        <div class="card">
+            <img src="https://c2c.fp3.guinfra.com/file/6621d16d3cbfcb092c3703d10AyiaT2m03?fop=imageView/2/w/340/h/340">
+            <h3>50 Алмазов</h3>
+            <div class="price">75 ₽</div>
+            <button class="buy-btn" onclick="openOrder('https://app.lava.top/products/2242ab44-a540-4201-9cf5-c30666a55f0a')">Купить</button>
+        </div>
+        <div class="card">
+            <img src="https://c2c.fp3.guinfra.com/file/6621d16d3cbfcb092c3703d10AyiaT2m03?fop=imageView/2/w/340/h/340">
+            <h3>500 Алмазов</h3>
+            <div class="price">750 ₽</div>
+            <button class="buy-btn" onclick="openOrder('https://app.lava.top/products/13d389eb-7f14-4ae7-bf8e-356ee5f115c6')">Купить</button>
+        </div>
+        <div class="card">
+            <img src="https://c2c.fp3.guinfra.com/file/6621d16d3cbfcb092c3703d10AyiaT2m03?fop=imageView/2/w/340/h/340">
+            <h3>1000 Алмазов</h3>
+            <div class="price">1450 ₽</div>
+            <button class="buy-btn" onclick="openOrder('https://app.lava.top/products/d25a65e8-554e-4e01-8bf4-cb067854295f')">Купить</button>
+        </div>
+    </div>
+</div>
+
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <h2 style="font-family: 'Orbitron'; color: var(--main-green);">ПОДТВЕРЖДЕНИЕ</h2>
+        <p>Введите данные вашего игрового профиля</p>
+        <input type="number" id="playerID" placeholder="ID игрока">
+        <input type="number" id="serverID" placeholder="ID сервера">
+        <button class="confirm-btn" id="payButton">ПЕРЕЙТИ К ОПЛАТЕ</button>
+        <a href="#" onclick="closeModal()" style="display:block; margin-top:20px; color:#555; text-decoration:none;">Вернуться назад</a>
+    </div>
+</div>
+
+<a href="https://t.me/mlbb_shop_support_bot" target="_blank" class="tg-widget">
+    <span class="tg-tip">Нужна помощь? Пиши!</span>
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8L15.51 15.96C15.37 16.71 14.83 16.99 14.25 17.04C13.81 16.6 13.25 16.23 11.02 14.73C10.67 13.13 11.23 13.13 11.23 13.13L13.98 10.45C13.99 10.31 13.71 10.24 13.71 10.24L9.5 13.03C8.74 13.43 8.42 13.43 8.42 13.43C7.37 13.23 6.86 13.06 5.77 12.4C6.52 11.84 12.4 9.31 12.4 9.31C15.15 8.16 16.09 7.96 16.64 8.8Z" fill="white"/></svg>
+</a>
+
+<footer>
+    &copy; 2026 MLBB Store. Все права защищены.<br>
+    Не является официальным продуктом Moonton.
+</footer>
+
+<script>
+    let currentUrl = "";
+    function openOrder(url) {
+        currentUrl = url;
+        document.getElementById('orderModal').style.display = 'flex';
+    }
+    function closeModal() {
+        document.getElementById('orderModal').style.display = 'none';
+    }
+    document.getElementById('payButton').onclick = function() {
+        const id = document.getElementById('playerID').value;
+        const srv = document.getElementById('serverID').value;
+        if(id.length > 5 && srv.length >= 4) {
+            window.location.href = currentUrl;
+        } else {
+            alert("Пожалуйста, введите корректные данные аккаунта!");
+        }
+    }
+</script>
+
+</body>
+</html>
